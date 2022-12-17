@@ -32,6 +32,10 @@ With update L1.0.8, there is now support for user created themes. To add a theme
 3) Clocks inside the folder must be labeled as "\[size]clock\_\[progress].png". For example, "12clock_3.png".
 4) Should a given clock theme not have sizes 2, 3, 4, 5, 6, 8, 10, or 12, then you must be willing to either use placeholder assets, create more to cover the missing size values (and appropriate progress for each), or be willing to handle the fact that said clock will be a broken image file.
 
+## Known Issues
+1) Due to how the module handles custom themes, users require "Use File Browser" permissions to even open the ClockSheet. This is deemed an edge-case scenario as this is mainly GM-facing in its functions.
+2) Custom themes currently do not work on Forge. I do not have the knowledge required to currently handle using a user's Asset Library for custom themes as I am not currently in a position that would let me test with it.
+
 ## License
 
 This module is available as open source under the terms of the MIT License.
