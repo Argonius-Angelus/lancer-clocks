@@ -39,6 +39,7 @@ export class Clock {
 		
 		}).catch(err => {
 			error(err)
+			ui.notifications.error("The following error occurred when generating the clock themes: "+err)
 		});
 		let extraPath = game.settings.get("lancer-clocks","extraPaths")
 		if (!(extraPath.endsWith("/"))) {
