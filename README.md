@@ -3,6 +3,8 @@ This is a fork of the original [Blades in the Dark Clocks Module](https://github
 
 While it was initially designed to be used for the Lancer system specifically (hence the name and clock styles that come by default), it is actually compatible with every system that has actor sheets due to some modifications to the original code.
 
+If you encounter a bug or want more prompt responses to feature requests, I would personally recommend you try to contact me on either the \#lancer-vtt channel of the Pilot NET discord (Lancer system) or in a relevant channel of the Foundry VTT discord server.
+
 
 # Foundry VTT: Clocks
 
