@@ -11,9 +11,7 @@ Hooks.once("init", () => {
 		log("No old settings.")
   }  else {
 	    	log("Old settings found.")
-	    	tradePath = localStorage.getItem("lancer-clocks.extraPaths")
-		localStorage.removeItem("lancer-clocks.extraPaths")
-		log("Old settings deleted.")		
+	    	tradePath = localStorage.getItem("lancer-clocks.extraPaths")	
   }
   game.settings.register("lancer-clocks","extraPaths",{
 		name: 'Extra Lancer Clocks Path',
