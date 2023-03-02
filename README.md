@@ -36,7 +36,7 @@ With update L1.0.8, there is now support for user created themes. To add a theme
 
 ## Known Issues
 1) Due to how the module handles custom themes, users require "Use File Browser" permissions to even open the ClockSheet. This is deemed an edge-case scenario as this module is mainly GM-facing in its functions.
-2) Custom themes currently do not work on Forge. I do not have the knowledge required to currently handle using a user's Asset Library for custom themes as I am not currently in a position that would let me test with it.
+2) Custom themes support on Forge is unknown. I cannot confirm nor deny as I do not have the ability to reliably test it. I have heard reports stating it both works and does not work, so Your Mileage May Vary.
 
 ## License
 
