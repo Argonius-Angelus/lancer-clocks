@@ -1,14 +1,24 @@
 {
   "name": "lancer-clocks",
+  "id": "lancer-clocks",
   "title": "Lancer Clocks",
   "description": "Lancer-themed progress clocks. Usable with every system and supports custom themes.",
   "author": "Argonius-Angelus",
+  "authors": [
+    {
+      "name": "Argonius-Angelus"
+    }
+  ],
   "url": "https://github.com/Argonius-Angelus/fvtt-clocks",
   "manifest": "https://raw.githubusercontent.com/Argonius-Angelus/lancer-clocks/main/module.json",
-  "download": "https://github.com/Argonius-Angelus/lancer-clocks/archive/L1.0.24.zip",
-  "version": "1.0.24",
+  "download": "https://github.com/Argonius-Angelus/lancer-clocks/archive/L1.0.25.zip",
+  "version": "1.0.25",
   "minimumCoreVersion": "0.8.0",
   "compatibleCoreVersion": "10",
+  "compatibility" : {
+    "minimum": "0.8.0",
+    "verified": "10.291"    
+  },
   "esmodules": ["modules/hooks.js"],
   "styles": ["styles/clocks.css"]
 }
