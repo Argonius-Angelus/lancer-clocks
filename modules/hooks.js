@@ -30,26 +30,6 @@ Hooks.once("init", () => {
 	).catch(err => {
 		FilePicker.createDirectory("data",extraPath)
 		console.log("Foundry VTT | Lancer Clocks | Created custom user directory.")})
-		
-	/*
-	game.settings.register("lancer-clocks", "enableTooltip", {
-        name: 'Test Tooltip',
-        hint: 'Testing',
-        scope: 'world',
-        config: true,
-        type: Boolean,
-        default: false
-    });
-		
-	if(game.settings.get("lancer-clocks","enableTooltip")){
-        Hooks.on("renderHeadsUpDisplay", (app, html, data) => {
-            canvas.hud.lancerClocks?.close();
-            html.find("#lancer-clock-tooltip").remove();
-            html.append('<template id="lancer-clock-tooltip"></template>');
-            canvas.hud.lancerClocks = new LancerClockToolTip();
-        });
-    }
-	*/
 
 });
 
