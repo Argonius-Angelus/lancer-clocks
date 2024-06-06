@@ -53,11 +53,11 @@ export class ClockSheet extends ActorSheet {
 	//console.log(clock._themes)
 	
 	let compiledThemes = [];
-	compiledThemes.push(...clock._themes,...(clock._extraThemes ?? []));
+	compiledThemes.push(...clock._themes);
 	//console.log(compiledThemes);
 	
 	let compiledThemePaths = [];
-	compiledThemePaths.push(...clock._themePaths,...(clock._extraThemePaths ?? []))
+	compiledThemePaths.push(...clock._themePaths)
 	//console.log(compiledThemePaths)
 	
 	let themeDict = {};
