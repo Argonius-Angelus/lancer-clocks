@@ -34,12 +34,12 @@ export class Clock {
 			//throw "Lancer Clock Direrctory Error: No valid directories for base themes."; //Enabling this Breaks Things. Only enable when debugging or developing this area.
 		  };
 		  
-		this._themes = newDirs;
-		this._themePaths = tempDirs;
+		this._baseThemes = newDirs;
+		this._baseThemePaths = tempDirs;
 		
 		}).catch(err => {
 			error(err)
-			ui.notifications.error("The following error occurred when generating the clock themes: "+err)
+			//ui.notifications.error("The following error occurred when generating the clock themes: "+err) //It now fails more elegantly.
 		});
 		let extraPath = game.settings.get("lancer-clocks","extraPaths")
 		if (!(extraPath.endsWith("/"))) {
@@ -67,8 +67,14 @@ export class Clock {
 			};
 			this._extraThemePaths = newExtraPaths;
 			this._extraThemes = newExtraDirs;
+			this._themes = (this._baseThemes ?? []).concat(this._extraThemes)
+			this._themePaths = (this._baseThemePaths ?? []).concat(this._extraThemePaths)
+			if (this._themes?.length < 1) {
+				throw("This user doesn't have access to modules/lancer-clocks/themes and there are no custom clocks installed. Please annoy your GM to add custom themes to "+extraPath+".")
+			}
 		}).catch(err => {
 			error(err)
+			ui.notifications.error(err)
 		});
     const isSupportedSize = size && Clock.sizes.indexOf(parseInt(size)) >= 0;
     this._size = isSupportedSize ? parseInt(size) : Clock.sizes[0];
@@ -76,7 +82,7 @@ export class Clock {
     const p = (!progress || progress < 0) ? 0 : progress < this._size ? progress : this._size;
     this._progress = p || 0;
 
-    this._theme = theme || this._themes?.[0] || "lancer_wallflower_green";
+    this._theme = theme || this._themes?.[0] || this._extraThemes?.[0] || "lancer_wallflower_green";
 	//let testingThemes = FilePicker.browse("data", "modules/lancer-clocks/themes").then(data => {console.log(data)});
 	//console.log(testingThemes);
   }
