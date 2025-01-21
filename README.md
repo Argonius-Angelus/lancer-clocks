@@ -33,6 +33,7 @@ With update L1.0.8, there is now support for user created themes. To add a theme
 2) Any spaces or special punctuation in a theme folder needs to be changed to an underscore (\_). While it is possible that a theme with spaces or punctuation could work, replacing them with underscores is the most reliable method. These theme folders must have unique names as well. "lancer_gms_red", "lancer_gms_red_grey", "lancer_wallflower_green" and "lancer_wallflower_green_grey" are reserved for the module itself and cannot be used as custom names.
 3) Clocks inside the folder must be labeled as "\[size]clock\_\[progress].png". For example, "12clock_3.png".
 4) Should a given clock theme not have sizes 2, 3, 4, 5, 6, 8, 10, or 12, then you must be willing to either use placeholder assets, create more to cover the missing size values (and appropriate progress for each), or be willing to handle the fact that said clock will be a broken image file.
+[Here is a link to a google drive that has a number of fan-made Lancer Clock designs for the community to use.](https://drive.google.com/drive/folders/1Lhal4Of9Z3BWIoqz1bE7BakqDSbo7sWH)
 
 ## Known Issues
 1) Due to how the module handles custom themes, users require "Use File Browser" permissions to even open the ClockSheet. This is deemed an edge-case scenario as this module is mainly GM-facing in its functions.
