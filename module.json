@@ -11,8 +11,8 @@
   ],
   "url": "https://github.com/Argonius-Angelus/fvtt-clocks",
   "manifest": "https://raw.githubusercontent.com/Argonius-Angelus/lancer-clocks/main/module.json",
-  "download": "https://github.com/Argonius-Angelus/lancer-clocks/archive/L1.0.26.zip",
-  "version": "1.0.26",
+  "download": "https://github.com/Argonius-Angelus/lancer-clocks/archive/L1.0.27.zip",
+  "version": "1.0.27",
   "minimumCoreVersion": "0.8.0",
   "compatibleCoreVersion": "10",
   "compatibility" : {
