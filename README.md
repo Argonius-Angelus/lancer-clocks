@@ -38,7 +38,9 @@ With update L1.0.8, there is now support for user created themes. To add a theme
 
 ## Known Issues
 1) Due to how the module handles custom themes, users require "Use File Browser" permissions to even open the ClockSheet. This is deemed an edge-case scenario as this module is mainly GM-facing in its functions.
-2) Custom themes support on Forge is unknown. I cannot confirm nor deny as I do not have the ability to reliably test it. I have heard reports stating it both works and does not work, so Your Mileage May Vary.
+2) Compatibility with Forge is unknown. I cannot confirm nor deny as I do not have the ability to reliably test it. I have heard reports stating it both works and does not work, so Your Mileage May Vary.
+
+Github for some reason does not notify me when an issue is made here. If there is a bug that you have encountered, feel free to @ "That Lancer Clocks Guy" about it on either the [Foundry Discord Server](https://discord.gg/foundryvtt) or the [Pilot NET Discord Server](https://discord.com/invite/lancer) as I am more likely to get a notification for these than I am for actual issues here.
 
 ## License
 
