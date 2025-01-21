@@ -10,8 +10,6 @@ const DISPOSITION = {
 };
 const DEFAULT_TOKEN = {
   scale: 1,
-  disposition: DISPOSITION.NEUTRAL,
-  displayName: DISPLAY_NAME.ALWAYS_FOR_EVERYONE,
   actorLink: true
 };
 
@@ -148,7 +146,6 @@ export class ClockSheet extends ActorSheet {
     const tokens = actor.getActiveTokens();
     for (const t of tokens) {
 		await t.document.update({
-			name: actor.name,
 			img: `${themeDict[clock.theme]}/${clock.size}clock_${clock.progress}.png`,
 			actorLink: true
 		});
