@@ -68,7 +68,19 @@ export class ClockSheet extends ActorSheet {
 	});
 	//console.log(themeDict);
 	
-	//console.log(`/${themeDict[clock.theme]}/${clock.size}clock_${clock.progress}.png`)
+	//console.log(`/${themeDict[compiledThemes[clock.theme]]}/${clock.size}clock_${clock.progress}.png`)
+	let sizeDict = {}
+	Clock.sizes.forEach((sizeItem) =>{
+		sizeDict[sizeItem] = sizeItem
+	});
+	let themeSelectDict = {}
+	compiledThemes.forEach((themeItem) =>{
+		themeSelectDict[themeItem] = themeItem
+	});
+	
+	//console.log(sizeDict)
+	//console.log(themeSelectDict)
+	//console.log(clock.size)
 	
     return mergeObject(super.getData(), {
       clock: {
@@ -81,8 +93,8 @@ export class ClockSheet extends ActorSheet {
           height: clock.image.height
         },
         settings: {
-          sizes: Clock.sizes,
-          themes: compiledThemes
+          sizes: sizeDict,
+          themes: themeSelectDict
         }
       }
     });
@@ -147,23 +159,59 @@ export class ClockSheet extends ActorSheet {
 	compiledThemes.forEach((themeItem) =>{
 		themeDict[themeItem] = compiledThemePaths[compiledThemes.indexOf(themeItem)]
 	});
+	
     const tokens = actor.getActiveTokens();
+	//console.log(tokens)
+	//console.log(clock.theme)
+	let verMajor = `${game.version}`.slice(0,2)
+	//console.log(verMajor)
     for (const t of tokens) {
-		await t.document.update({
-			img: `${themeDict[clock.theme]}/${clock.size}clock_${clock.progress}.png`,
-			actorLink: true
-		});
+		if (verMajor == "11") {
+			await t.document.update({
+				img: `${themeDict[clock.theme]}/${clock.size}clock_${clock.progress}.png`,
+				actorLink: true
+			});
+		} else {
+			await t.document.update({
+				texture: {
+					"src": `${themeDict[clock.theme]}/${clock.size}clock_${clock.progress}.png`
+					},
+				actorLink: true
+			});
+		}
     }
 
     // update the Actor
+	//console.log("Updating Actor")
+	//console.log(verMajor)
+	let visualObj = {}
     const persistObj = await this.system.persistClockToActor({ actor, clock });
-    const visualObj = {
-      img: `${themeDict[clock.theme]}/${clock.size}clock_${clock.progress}.png`,
-      token: {
-        img: `${themeDict[clock.theme]}/${clock.size}clock_${clock.progress}.png`,
-        ...DEFAULT_TOKEN
-      }
-    };
+	if (verMajor == "11"){
+		visualObj = {
+			img: `${themeDict[clock.theme]}/${clock.size}clock_${clock.progress}.png`,
+			token: {
+				img: `${themeDict[clock.theme]}/${clock.size}clock_${clock.progress}.png`,
+				...DEFAULT_TOKEN
+			}
+		};
+	} else {
+		visualObj = {
+			img: `${themeDict[clock.theme]}/${clock.size}clock_${clock.progress}.png`,
+			prototypeToken:{
+				texture: {
+					"src": `${themeDict[clock.theme]}/${clock.size}clock_${clock.progress}.png`
+				},
+				...DEFAULT_TOKEN
+			},
+			token: {
+				texture: {
+					"src": `${themeDict[clock.theme]}/${clock.size}clock_${clock.progress}.png`
+				},
+				...DEFAULT_TOKEN
+			}
+		};
+	}
+	//console.log("Await.")
     await actor.update(mergeObject(visualObj, persistObj));
   }
 }
