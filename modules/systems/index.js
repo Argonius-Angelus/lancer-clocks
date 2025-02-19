@@ -33,7 +33,7 @@ export const getSystemMapping = (id) => {
 		  id,
 		  ...defaultSystemConfig,
 		  registerSheetOptions: {
-			types: (game.data.system?.template?.Actor.types ?? game.data.template.Actor.types)
+			types: (game.data.system?.template?.Actor?.types ?? game.data.template?.Actor?.types ?? game.model.Actor.types) //This shit is held together by hopes and dreams.
 		  }
 		};
   }
