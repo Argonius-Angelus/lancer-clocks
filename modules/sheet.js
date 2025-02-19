@@ -15,6 +15,7 @@ const DEFAULT_TOKEN = {
 
 export class ClockSheet extends ActorSheet {
   static get defaultOptions() {
+	//log("Default Options.")
     const supportedSystem = getSystemMapping(game.data.system.id);
 	  return mergeObject(
       super.defaultOptions,
@@ -29,7 +30,10 @@ export class ClockSheet extends ActorSheet {
   }
 
   static register () {
+	//log("Register.")
+	//log("Supported System.")
     const supportedSystem = getSystemMapping(game.data.system.id);
+	//log("Actors.")
     Actors.registerSheet(supportedSystem.id, ClockSheet, supportedSystem.registerSheetOptions);
     log("Sheet Registered");
   }
