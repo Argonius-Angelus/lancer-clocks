@@ -3,17 +3,18 @@ import { ClockSheet } from "./sheet.js";
 import { log } from "./util.js";
 
 Hooks.once("init", () => {
-  log(`Init ${game.data.system.id}`);
-  ClockSheet.register();
-  let tradePath = "";
-  if (localStorage.getItem("lancer-clocks.extraPaths") == null) {
+	log(`Init ${game.data.system.id}`);
+	ClockSheet.register();
+	let tradePath = "";
+	if (localStorage.getItem("lancer-clocks.extraPaths") == null) {
 		tradePath = "lancer-clocks"
 		log("No old settings.")
-  }  else {
+	}  else {
 	    	log("Old settings found.")
 	    	tradePath = localStorage.getItem("lancer-clocks.extraPaths")	
-  }
-  game.settings.register("lancer-clocks","extraPaths",{
+	}
+  
+	game.settings.register("lancer-clocks","extraPaths",{
 		name: 'Extra Lancer Clocks Path',
 		hint: 'This is the directory within the data path for custom clocks. This gets created automatically should it not already exist. This is stored on a per-world basis for more reliability.',
 		scope: 'world',
@@ -21,6 +22,25 @@ Hooks.once("init", () => {
 		type: String,
 		default: tradePath,
 	});
+  
+	game.settings.register("lancer-clocks","baseThemeToggle",{
+		name: 'Disable Base Theme Check',
+		hint: 'Disable the checking of base themes for faster performance.',
+		scope: 'world',
+		config: true,
+		type: Boolean,
+		default: false,
+	});
+  
+	game.settings.register("lancer-clocks","extraThemeToggle",{
+		name: 'Disable Extra Theme Check',
+		hint: 'Disable the checking of extra themes for faster performance. Do not have both this and Disable Base Theme Check enabled at the same time.',
+		scope: 'world',
+		config: true,
+		type: Boolean,
+		default: false,
+	});
+  
 	let extraPath = game.settings.get("lancer-clocks","extraPaths");
 	if (!(extraPath.endsWith("/"))) {
 			extraPath = extraPath+"/"
@@ -30,7 +50,7 @@ Hooks.once("init", () => {
 	).catch(err => {
 		FilePicker.createDirectory("data",extraPath)
 		console.log("Foundry VTT | Lancer Clocks | Created custom user directory.")})
-
+		
 });
 
 Hooks.once("ready", () => {
