@@ -13,42 +13,45 @@ export class Clock {
   static get themes () {
     return this._themes
   }
-
-  constructor ({ theme, size, progress } = {}) {
-		this.themesPromise = FilePicker.browse("data", "modules/lancer-clocks/themes").then(data => {
-		  let tempDirs = data.dirs;
-		  let newDirs = [];
-		  let newPaths = [];
-		  let baseDirCheck = false;
-		  tempDirs.forEach((dirItem) => {
-		    let newDirItem = dirItem.replace("modules/lancer-clocks/themes/","");
-		    if (dirItem.startsWith("modules/lancer-clocks/themes/")) {
-				newDirs.push(newDirItem);
-				newPaths.push(dirItem);
-				//console.log(dirItem)
-				baseDirCheck = true;
-			}
-		  });
-		  if (!(baseDirCheck)) {
-			  error("Base directory check failed.")
-			//throw "Lancer Clock Direrctory Error: No valid directories for base themes."; //Enabling this Breaks Things. Only enable when debugging or developing this area.
-		  };
-		  
-		this._baseThemes = newDirs;
-		this._baseThemePaths = tempDirs;
-		
-		}).catch(err => {
-			error(err)
-			//ui.notifications.error("The following error occurred when generating the clock themes: "+err) //It now fails more elegantly.
-		});
+  
+  async themesGetter() {
+		//console.log("Starting Base Themes Getter")
+		let baseSkip = game.settings.get("lancer-clocks","baseThemeToggle")
+		let extraSkip = game.settings.get("lancer-clocks","extraThemeToggle")
 		let extraPath = game.settings.get("lancer-clocks","extraPaths")
-		if (!(extraPath.endsWith("/"))) {
-			extraPath = extraPath+"/"
+		
+		if (!(baseSkip)) { //Due to recent performance concerns, we need to be able to skip past this if the user desires such.
+			let baseThemesPicker = await FilePicker.browse("data", "modules/lancer-clocks/themes")
+			let tempDirs = baseThemesPicker.dirs;
+			let newDirs = [];
+			let newPaths = [];
+			let baseDirCheck = false;
+			tempDirs.forEach((dirItem) => {
+				let newDirItem = dirItem.replace("modules/lancer-clocks/themes/","");
+				if (dirItem.startsWith("modules/lancer-clocks/themes/")) {
+					newDirs.push(newDirItem);
+					newPaths.push(dirItem);
+					//console.log(dirItem)
+					baseDirCheck = true;
+				}
+			});
+			if (!(baseDirCheck)) {
+				error("Base directory check failed.")
+				//throw "Lancer Clock Direrctory Error: No valid directories for base themes."; //Enabling this Breaks Things. Only enable when debugging or developing this area.
+			};
+		  
+			this._baseThemes = newDirs;
+			this._baseThemePaths = tempDirs;
+			//console.log("Ending Base Themes Getter")
 		}
-		//console.log(extraPath)
-		this.extraThemesPromise = FilePicker.browse("data",extraPath).then(data => {
-			//console.log(data)
-			let tempExtraDirs = data.dirs;
+		
+		if (!(extraSkip)) {
+			//console.log("Starting Extra Themes Getter")
+			if (!(extraPath.endsWith("/"))) {
+				extraPath = extraPath+"/"
+			}
+			let extraThemesPicker = await FilePicker.browse("data",extraPath)
+			let tempExtraDirs = extraThemesPicker.dirs;
 			let newExtraDirs = [];
 			let newExtraPaths = [];
 			let extraDirCheck = false;
@@ -67,15 +70,34 @@ export class Clock {
 			};
 			this._extraThemePaths = newExtraPaths;
 			this._extraThemes = newExtraDirs;
-			this._themes = (this._baseThemes ?? []).concat(this._extraThemes)
-			this._themePaths = (this._baseThemePaths ?? []).concat(this._extraThemePaths)
-			if (this._themes?.length < 1) {
-				throw("This user doesn't have access to modules/lancer-clocks/themes and there are no custom clocks installed. Please annoy your GM to add custom themes to "+extraPath+".")
-			}
-		}).catch(err => {
+		}
+		
+		this._themes = (this._baseThemes ?? []).concat(this._extraThemes ?? [])
+		this._themePaths = (this._baseThemePaths ?? []).concat(this._extraThemePaths ?? [])
+		if (this._themes?.length < 1) {
+			let err = "This user doesn't have access to modules/lancer-clocks/themes and there are no custom clocks installed. Please annoy your GM to add custom themes to "+extraPath+"."
 			error(err)
 			ui.notifications.error(err)
+		}
+		//console.log("Ending Extra Themes Getter")
+  }
+
+  constructor ({ theme, size, progress } = {}) {
+		this.themesPromise = new Promise((resolve,reject) => {
+			this.themesGetter().finally(() => {
+				resolve()
+			})
 		});
+		
+		//error(extraPath)
+		/* this.extraThemesPromise = new Promise((resolve,reject) => {
+			this.extraThemesGetter().finally(() =>{
+				console.log(this._themes)
+				resolve()
+			})
+		}) */
+		
+	//Below here is everything the constructor directly queries.
     const isSupportedSize = size && Clock.sizes.indexOf(parseInt(size)) >= 0;
     this._size = isSupportedSize ? parseInt(size) : Clock.sizes[0];
 
