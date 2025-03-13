@@ -64,7 +64,9 @@ Hooks.once("ready", () => {
 	</br>
 	<p><strong>Quick Tutorial</strong></p>
 	<p>In order to create a clock with this module. You must create an <b><u>NPC</u></b> actor and set the sheet type to <b><u>${game.data.system.id}.ClockSheet</u></b>. This should allow you to play around with the clock as intended.</p>
-	<p>Do note that in order to use this module, you must have the "Use File Browser" permissions to even open the ClockSheet. This is something to be aware of if you plan to give players control over ClockSheets.</p>`;
+	<p>Do note that in order to use this module, you must have the "Use File Browser" permissions to even open the ClockSheet. This is something to be aware of if you plan to give players control over ClockSheets.</p>
+	</br>
+	<p>New options have been added to the module to improve performance for those hosting games on The Forge or other external hosts. These two options allow you to disable checking for base themes and extra themes.</p>`;
   
     // Settings key used for the "Don't remind me again" setting
     const DONT_REMIND_AGAIN_KEY = "popup-dont-remind-again";
