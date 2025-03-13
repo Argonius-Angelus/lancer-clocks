@@ -50,7 +50,7 @@ export class ClockSheet extends ActorSheet {
   async getData () {
     const clock = new Clock(this.system.loadClockFromActor({ actor: this.actor }));
 	await clock.themesPromise;
-	await clock.extraThemesPromise;
+	//await clock.extraThemesGetter();
 	//console.log(clock);
 	//console.log(clock._themes)
 	
@@ -145,7 +145,7 @@ export class ClockSheet extends ActorSheet {
     const actor = this.actor;
 	
 	await clock.themesPromise;
-	await clock.extraThemesPromise;
+	//await clock.extraThemesPromise;
 	
 	let compiledThemes = [];
 	compiledThemes.push(...clock._themes,...(clock._extraThemes ?? []));
@@ -187,7 +187,7 @@ export class ClockSheet extends ActorSheet {
 	let visualObj = {}
     const persistObj = await this.system.persistClockToActor({ actor, clock });
 	if (verMajor == "11"){
-		visualObj = {
+		visualObj = await {
 			img: `${themeDict[clock.theme]}/${clock.size}clock_${clock.progress}.png`,
 			token: {
 				img: `${themeDict[clock.theme]}/${clock.size}clock_${clock.progress}.png`,
@@ -195,7 +195,7 @@ export class ClockSheet extends ActorSheet {
 			}
 		};
 	} else {
-		visualObj = {
+		visualObj = await {
 			img: `${themeDict[clock.theme]}/${clock.size}clock_${clock.progress}.png`,
 			prototypeToken:{
 				texture: {
