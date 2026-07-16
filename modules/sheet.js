@@ -17,7 +17,7 @@ export class ClockSheet extends ActorSheet {
   static get defaultOptions() {
 	//log("Default Options.")
     const supportedSystem = getSystemMapping(game.data.system.id);
-	  return mergeObject(
+	  return foundry.utils.mergeObject(
       super.defaultOptions,
       {
         classes: ["lancer-clocks", "sheet", `lancer-clocks-system-${game.data.system.id}`, "actor", "npc"],
@@ -33,7 +33,9 @@ export class ClockSheet extends ActorSheet {
 	//log("Register.")
 	//log("Supported System.")
     const supportedSystem = getSystemMapping(game.data.system.id);
+	//console.error(supportedSystem) //This is specifically an error so that I can see this easily in the console.
 	//log("Actors.")
+	//console.error(supportedSystem.registerSheetOptions) //This is specifically an error so that I can see this easily in the console.
     Actors.registerSheet(supportedSystem.id, ClockSheet, supportedSystem.registerSheetOptions);
     log("Sheet Registered");
   }
@@ -166,19 +168,12 @@ export class ClockSheet extends ActorSheet {
 	let verMajor = `${game.version}`.slice(0,2)
 	//console.log(verMajor)
     for (const t of tokens) {
-		if (verMajor == "11") {
-			await t.document.update({
-				img: `${themeDict[clock.theme]}/${clock.size}clock_${clock.progress}.png`,
-				actorLink: true
-			});
-		} else {
-			await t.document.update({
-				texture: {
-					"src": `${themeDict[clock.theme]}/${clock.size}clock_${clock.progress}.png`
-					},
-				actorLink: true
-			});
-		}
+		await t.document.update({
+			texture: {
+				"src": `${themeDict[clock.theme]}/${clock.size}clock_${clock.progress}.png`
+				},
+			actorLink: true
+		});
     }
 
     // update the Actor
@@ -186,31 +181,21 @@ export class ClockSheet extends ActorSheet {
 	//console.log(verMajor)
 	let visualObj = {}
     const persistObj = await this.system.persistClockToActor({ actor, clock });
-	if (verMajor == "11"){
-		visualObj = await {
-			img: `${themeDict[clock.theme]}/${clock.size}clock_${clock.progress}.png`,
-			token: {
-				img: `${themeDict[clock.theme]}/${clock.size}clock_${clock.progress}.png`,
-				...DEFAULT_TOKEN
-			}
-		};
-	} else {
-		visualObj = await {
-			img: `${themeDict[clock.theme]}/${clock.size}clock_${clock.progress}.png`,
-			prototypeToken:{
-				texture: {
-					"src": `${themeDict[clock.theme]}/${clock.size}clock_${clock.progress}.png`
-				},
-				...DEFAULT_TOKEN
+	visualObj = await {
+		img: `${themeDict[clock.theme]}/${clock.size}clock_${clock.progress}.png`,
+		prototypeToken:{
+			texture: {
+				"src": `${themeDict[clock.theme]}/${clock.size}clock_${clock.progress}.png`
 			},
-			token: {
-				texture: {
-					"src": `${themeDict[clock.theme]}/${clock.size}clock_${clock.progress}.png`
-				},
-				...DEFAULT_TOKEN
-			}
-		};
-	}
+			...DEFAULT_TOKEN
+		},
+		token: {
+			texture: {
+				"src": `${themeDict[clock.theme]}/${clock.size}clock_${clock.progress}.png`
+			},
+			...DEFAULT_TOKEN
+		}
+	};
 	//console.log("Await.")
     await actor.update(mergeObject(visualObj, persistObj));
   }
