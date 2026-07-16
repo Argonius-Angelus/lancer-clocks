@@ -33,7 +33,7 @@ export const getSystemMapping = (id) => {
 		  id,
 		  ...defaultSystemConfig,
 		  registerSheetOptions: {
-			types: (game.data.system?.template?.Actor?.types ?? game.data.template?.Actor?.types ?? game.model.Actor.types) //This shit is held together by hopes and dreams.
+			types: ["npc"] //Fuck it. Hard coding this shit at this point. Needed to jump through so many hoops just in case before, but now I can just go ["npc"]. If the system doesn't have an NPC category for sheets, what the hell is wrong with the developer of it?
 		  }
 		};
   }
