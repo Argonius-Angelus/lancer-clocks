@@ -12,10 +12,10 @@ Create [Blades in the Dark](https://bladesinthedark.com/)-esque [progress clocks
 
 ## Installation
 
-Install manually with [this Manifest URL](https://raw.githubusercontent.com/Argonius-Angelus/fvtt-clocks/main/module.json):
+Install manually with [this Manifest URL](https://github.com/geek-io/lancer-clocks-14/releases/latest/download/module.json):
 
 ```
-https://raw.githubusercontent.com/Argonius-Angelus/fvtt-clocks/main/module.json
+https://github.com/geek-io/lancer-clocks-14/releases/latest/download/module.json
 ```
 It is also now available in the official Foundry add-on repository.
 

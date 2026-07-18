@@ -62,7 +62,7 @@ Hooks.once("ready", () => {
     const FALLBACK_MESSAGE_TITLE = "Welcome to Lancer Clock v14";
     const FALLBACK_MESSAGE = `<large>
     <p><strong>Welcome to Lancer Clock v14! The Lancer themed, but system agnostic, Clocks Module!</strong></p>
-	<p>For a full tutorial and known issues, please see the <a href="https://github.com/Argonius-Angelus/lancer-clock-14">GitHub</a> for this module.</p>
+	<p>For a full tutorial and known issues, please see the <a href="https://github.com/geek-io/lancer-clocks-14">GitHub</a> for this module.</p>
 	</br>
 	<p><strong>Quick Tutorial</strong></p>
 	<p>In order to create a clock with this module. You must create an <b><u>NPC</u></b> actor and set the sheet type to <b><u>${getSystemId()}.ClockSheet</u></b>. This should allow you to play around with the clock as intended.</p>
