@@ -1,25 +1,45 @@
-const SUPPORTED_SYSTEMS = {
-  "":""
+const SUPPORTED_SYSTEMS = {};
+const MODULE_ID = "lancer-clock-14";
+const LEGACY_MODULE_ID = "lancer-clocks";
+
+const getRawFlag = (actor, scope, key) => {
+  return actor.flags?.[scope]?.[key]
+    ?? actor._source?.flags?.[scope]?.[key]
+    ?? actor.toObject?.()?.flags?.[scope]?.[key];
+};
+
+const getModuleFlag = (actor, key) => {
+  return actor.getFlag(MODULE_ID, key) ?? getRawFlag(actor, LEGACY_MODULE_ID, key);
 };
 
 const defaultLoadClockFromActor = ({ actor }) => {
   return {
-    progress: actor.getFlag("lancer-clocks", "progress"),
-    size: actor.getFlag("lancer-clocks", "size"),
-    theme: actor.getFlag("lancer-clocks", "theme")
+    progress: getModuleFlag(actor, "progress"),
+    size: getModuleFlag(actor, "size"),
+    theme: getModuleFlag(actor, "theme")
   };
 };
 
 const defaultPersistClockToActor = async ({ clock }) => {
   return {
     flags: {
-      "lancer-clocks": {
+      [MODULE_ID]: {
         progress: clock.progress,
         size: clock.size,
         theme: clock.theme
       }
     }
   };
+};
+
+const getActorTypes = () => {
+  const types = game.system?.documentTypes?.Actor
+    ?? game.system?.template?.Actor?.types
+    ?? game.data?.system?.template?.Actor?.types
+    ?? game.data?.template?.Actor?.types
+    ?? game.model?.Actor?.types
+    ?? Object.keys(CONFIG.Actor?.dataModels ?? {});
+  return Array.isArray(types) ? types : [];
 };
 
 export const getSystemMapping = (id) => {
@@ -33,7 +53,8 @@ export const getSystemMapping = (id) => {
 		  id,
 		  ...defaultSystemConfig,
 		  registerSheetOptions: {
-			types: (game.data.system?.template?.Actor?.types ?? game.data.template?.Actor?.types ?? game.model.Actor.types) //This shit is held together by hopes and dreams.
+			label: "Lancer Clock v14",
+			types: getActorTypes()
 		  }
 		};
   }

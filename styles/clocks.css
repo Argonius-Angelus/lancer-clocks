@@ -1,60 +1,98 @@
-.lancer-clocks.sheet .clock-progress {
+.lancer-clock-14.sheet {
+  color: var(--color-text-primary, #f5f3e8);
+}
+
+.lancer-clock-14.sheet .window-content {
+  overflow-y: auto;
+}
+
+.lancer-clock-14.sheet .clock-form {
+  color: inherit;
+}
+
+.lancer-clock-14.sheet .clock-progress {
+  align-items: center;
+  display: grid;
+  gap: 6px;
+  grid-template-columns: minmax(0, 1fr) 40px minmax(0, 1fr);
+  margin: 4px 0 2px;
   text-align: center;
 }
-.lancer-clocks.sheet .clock-name {
-  height: 60px;
+.lancer-clock-14.sheet .clock-name {
+  height: auto;
+  margin-bottom: 8px;
   text-align: left;
 }
-.lancer-clocks.sheet .clock-name input {
-  height: 40px;
-  line-height: 48px;
-  font-size: 32px;
+.lancer-clock-14.sheet .clock-name input {
+  color: var(--color-text-primary, #f5f3e8);
+  height: 44px;
+  line-height: 44px;
+  font-size: 28px;
   width: 100%;
   background: none;
   border: 1px solid transparent;
   padding: 1px 3px;
   font-family: "Modesto Condensed", "Palatino Linotype", serif;
   border-radius: 3px;
-  color: rgb(25, 24, 19);
   margin: 0;
 }
-.lancer-clocks.sheet .clock-name.editable input:hover, .lancer-clocks.sheet .clock-name.editable input:focus {
-  border: 1px solid rgb(25, 24, 19);
+.lancer-clock-14.sheet .clock-name.editable input:hover, .lancer-clock-14.sheet .clock-name.editable input:focus {
+  border: 1px solid var(--color-border-highlight, #f5f3e8);
+  box-shadow: 0 0 4px var(--color-shadow-primary, #f5f3e8);
 }
-.lancer-clocks.sheet .clock-progress button {
-  width: 140px;
+.lancer-clock-14.sheet .clock-progress button {
+  align-items: center;
+  display: inline-flex;
+  height: 28px;
+  justify-content: center;
   margin: 0;
+  min-width: 0;
+  padding: 0;
+  width: 100%;
 }
-.lancer-clocks.sheet .clock-progress button[name=reset] {
+.lancer-clock-14.sheet .clock-progress button[name=reset] {
   width: 40px;
 }
-.lancer-clocks.sheet .clock-progress button:disabled {
+.lancer-clock-14.sheet .clock-progress button:disabled {
   color: #aaaaaa;
-  border: none;
+  opacity: 0.65;
 }
-.lancer-clocks.sheet .clock-image img {
+.lancer-clock-14.sheet .clock-image img {
   border: none;
+  display: block;
+  height: auto;
+  margin: 0 auto;
+  max-width: 100%;
 }
-.lancer-clocks.sheet .clock-config {
+.lancer-clock-14.sheet .clock-config {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 6px;
   text-align: center;
 }
-.lancer-clocks.sheet .clock-config .clock-config-group {
-  margin-left: 1.5em;
-  display: inline-block;
-}
-.lancer-clocks.sheet .clock-config .clock-config-group:first-child {
+.lancer-clock-14.sheet .clock-config .clock-config-group {
+  align-items: center;
+  display: flex;
+  gap: 6px;
   margin-left: 0;
 }
-.lancer-clocks.sheet .clock-config .clock-config-group label {
-  margin-right: 3px;
+.lancer-clock-14.sheet .clock-config .clock-config-group:first-child {
+  margin-left: 0;
 }
-.lancer-clocks.sheet .clock-config .clock-config-group select {
+.lancer-clock-14.sheet .clock-config .clock-config-group label {
+  color: var(--color-text-primary, #f5f3e8);
+  margin-right: 0;
+}
+.lancer-clock-14.sheet .clock-config .clock-config-group select {
+  color: var(--color-text-primary, #f5f3e8);
   width: 50px;
 }
-.lancer-clocks.sheet .clock-config .clock-config-group.theme select {
+.lancer-clock-14.sheet .clock-config .clock-config-group.theme select {
   width: 175px;
 }
-.lancer-clocks.sheet .clock-debug {
+.lancer-clock-14.sheet .clock-debug {
   background-color: #ff0000;
   color: #ffffff;
   font-weight: bold;
@@ -63,6 +101,6 @@
 
 /* system specific */
 
-.lancer-clocks.sheet.lancer-clocks-system-dnd5e .clock-name.editable input:hover, .lancer-clocks.sheet.lancer-clocks-system-dnd5e .clock-name.editable input:focus {
+.lancer-clock-14.sheet.lancer-clock-14-system-dnd5e .clock-name.editable input:hover, .lancer-clock-14.sheet.lancer-clock-14-system-dnd5e .clock-name.editable input:focus {
   box-shadow: 0 0 10px #ff0000;
 }

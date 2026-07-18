@@ -11,23 +11,23 @@
   {{#if editable}}
   <div class="clock-progress">
     {{#if (lte clock.progress 0)}}
-    <button name="minus" disabled>
+    <button type="button" name="minus" disabled>
       <i class="fa fa-minus"></i>
     </button>
     {{else}}
-    <button name="minus">
+    <button type="button" name="minus">
       <i class="fa fa-minus"></i>
     </button>
     {{/if}}
-    <button name="reset">
+    <button type="button" name="reset">
       <i class="fa fa-redo"></i>
     </button>
     {{#if (gte clock.progress clock.size)}}
-    <button name="plus" disabled>
+    <button type="button" name="plus" disabled>
       <i class="fa fa-plus"></i>
     </button>
     {{else}}
-    <button name="plus">
+    <button type="button" name="plus">
       <i class="fa fa-plus"></i>
     </button>
     {{/if}}
@@ -41,21 +41,13 @@
     <div class="clock-config-group theme">
       <label for="theme"><i class="fa fa-palette"></i></label>
       <select name="theme">
-        {{#selectOptions clock.settings.themes selected=clock.theme}}
-        <!-- {{#each clock.settings.themes as |theme|}}
-        <option value="{{theme}}">{{theme}}</option>
-        {{/each}}
-        {{/selectOptions}} -->
+        {{selectOptions clock.settings.themes selected=clock.theme}}
       </select>
     </div>
     <div class="clock-config-group">
       <label for="size"><i class="fa fa-chart-pie"></i></label>
       <select name="size">
-        {{#selectOptions clock.settings.sizes selected=clock.size}}
-        <!-- {{#each clock.settings.sizes as |size|}}
-        <option value="{{size}}">{{size}}</option>
-        {{/each}}
-        {{/selectOptions}} -->
+        {{selectOptions clock.settings.sizes selected=clock.size}}
       </select>
     </div>
   </div>

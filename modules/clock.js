@@ -1,4 +1,4 @@
-import { error } from "./util.js";
+import { error, getFilePicker } from "./util.js";
 
 const nextIndexInArray = (arr, el) => {
   const idx = arr.indexOf(el);
@@ -16,33 +16,42 @@ export class Clock {
   
   async themesGetter() {
 		//console.log("Starting Base Themes Getter")
-		let baseSkip = game.settings.get("lancer-clocks","baseThemeToggle")
-		let extraSkip = game.settings.get("lancer-clocks","extraThemeToggle")
-		let extraPath = game.settings.get("lancer-clocks","extraPaths")
+		this._baseThemes = [];
+		this._baseThemePaths = [];
+		this._extraThemes = [];
+		this._extraThemePaths = [];
+		let baseSkip = game.settings.get("lancer-clock-14","baseThemeToggle")
+		let extraSkip = game.settings.get("lancer-clock-14","extraThemeToggle")
+		let extraPath = game.settings.get("lancer-clock-14","extraPaths")
 		
 		if (!(baseSkip)) { //Due to recent performance concerns, we need to be able to skip past this if the user desires such.
-			let baseThemesPicker = await FilePicker.browse("data", "modules/lancer-clocks/themes")
-			let tempDirs = baseThemesPicker.dirs;
-			let newDirs = [];
-			let newPaths = [];
-			let baseDirCheck = false;
-			tempDirs.forEach((dirItem) => {
-				let newDirItem = dirItem.replace("modules/lancer-clocks/themes/","");
-				if (dirItem.startsWith("modules/lancer-clocks/themes/")) {
-					newDirs.push(newDirItem);
-					newPaths.push(dirItem);
-					//console.log(dirItem)
-					baseDirCheck = true;
-				}
-			});
-			if (!(baseDirCheck)) {
-				error("Base directory check failed.")
-				//throw "Lancer Clock Direrctory Error: No valid directories for base themes."; //Enabling this Breaks Things. Only enable when debugging or developing this area.
-			};
-		  
-			this._baseThemes = newDirs;
-			this._baseThemePaths = tempDirs;
-			//console.log("Ending Base Themes Getter")
+			try {
+				const FilePickerClass = getFilePicker();
+				let baseThemesPicker = await FilePickerClass.browse("data", "modules/lancer-clock-14/themes")
+				let tempDirs = baseThemesPicker.dirs ?? [];
+				let newDirs = [];
+				let newPaths = [];
+				let baseDirCheck = false;
+				tempDirs.forEach((dirItem) => {
+					let newDirItem = dirItem.replace("modules/lancer-clock-14/themes/","");
+					if (dirItem.startsWith("modules/lancer-clock-14/themes/")) {
+						newDirs.push(newDirItem);
+						newPaths.push(dirItem);
+						//console.log(dirItem)
+						baseDirCheck = true;
+					}
+				});
+				if (!(baseDirCheck)) {
+					error("Base directory check failed.")
+					//throw "Lancer Clock Direrctory Error: No valid directories for base themes."; //Enabling this Breaks Things. Only enable when debugging or developing this area.
+				};
+			  
+				this._baseThemes = newDirs;
+				this._baseThemePaths = newPaths;
+				//console.log("Ending Base Themes Getter")
+			} catch (err) {
+				error(err);
+			}
 		}
 		
 		if (!(extraSkip)) {
@@ -50,32 +59,39 @@ export class Clock {
 			if (!(extraPath.endsWith("/"))) {
 				extraPath = extraPath+"/"
 			}
-			let extraThemesPicker = await FilePicker.browse("data",extraPath)
-			let tempExtraDirs = extraThemesPicker.dirs;
-			let newExtraDirs = [];
-			let newExtraPaths = [];
-			let extraDirCheck = false;
-			tempExtraDirs.forEach((extraDirItem) => {
-				let newExtraDirItem = extraDirItem.replace(extraPath,"");
-				if (extraDirItem.startsWith(extraPath)) {
-					newExtraDirs.push(newExtraDirItem);
-					newExtraPaths.push(extraDirItem);
-					extraDirCheck = true;
-				}
-			})
-			//console.log(tempDirs);
-			if (!(extraDirCheck)) {
-				//error("Extra directory check failed."); //Will need to figure out a better way of handling a broken directory or a non-existent directory. Right now it'll throw an error if the directory exists but is empty.
-				//throw "Lancer Clock Directory Error: No valid directories for extra themes."; //Enabling this Breaks Things. Only enable when debugging or developing this area.
-			};
-			this._extraThemePaths = newExtraPaths;
-			this._extraThemes = newExtraDirs;
+			try {
+				const FilePickerClass = getFilePicker();
+				let extraThemesPicker = await FilePickerClass.browse("data",extraPath)
+				let tempExtraDirs = extraThemesPicker.dirs ?? [];
+				let newExtraDirs = [];
+				let newExtraPaths = [];
+				let extraDirCheck = false;
+				tempExtraDirs.forEach((extraDirItem) => {
+					let newExtraDirItem = extraDirItem.replace(extraPath,"");
+					if (extraDirItem.startsWith(extraPath)) {
+						newExtraDirs.push(newExtraDirItem);
+						newExtraPaths.push(extraDirItem);
+						extraDirCheck = true;
+					}
+				})
+				//console.log(tempDirs);
+				if (!(extraDirCheck)) {
+					//error("Extra directory check failed."); //Will need to figure out a better way of handling a broken directory or a non-existent directory. Right now it'll throw an error if the directory exists but is empty.
+					//throw "Lancer Clock Directory Error: No valid directories for extra themes."; //Enabling this Breaks Things. Only enable when debugging or developing this area.
+				};
+				this._extraThemePaths = newExtraPaths;
+				this._extraThemes = newExtraDirs;
+			} catch (err) {
+				error(err);
+			}
 		}
 		
 		this._themes = (this._baseThemes ?? []).concat(this._extraThemes ?? [])
 		this._themePaths = (this._baseThemePaths ?? []).concat(this._extraThemePaths ?? [])
 		if (this._themes?.length < 1) {
-			let err = "This user doesn't have access to modules/lancer-clocks/themes and there are no custom clocks installed. Please annoy your GM to add custom themes to "+extraPath+"."
+			this._themes = ["lancer_wallflower_green"];
+			this._themePaths = ["modules/lancer-clock-14/themes/lancer_wallflower_green"];
+			let err = "This user doesn't have access to modules/lancer-clock-14/themes and there are no custom clocks installed. Falling back to the bundled default clock theme."
 			error(err)
 			ui.notifications.error(err)
 		}
@@ -105,7 +121,7 @@ export class Clock {
     this._progress = p || 0;
 
     this._theme = theme || this._themes?.[0] || this._extraThemes?.[0] || "lancer_wallflower_green";
-	//let testingThemes = FilePicker.browse("data", "modules/lancer-clocks/themes").then(data => {console.log(data)});
+	//let testingThemes = FilePicker.browse("data", "modules/lancer-clock-14/themes").then(data => {console.log(data)});
 	//console.log(testingThemes);
   }
 
